@@ -1,0 +1,76 @@
+{
+  "users": {
+    "e1": {
+      "urname": "hirer",
+      "contactno": "0101",
+      "role": "Employer",
+      "username": "e1",
+      "password": "qq",
+      "details": {
+        "companyname": "hero",
+        "origin": "delhi",
+        "established": "2000",
+        "website": ""
+      },
+      "id": 1774795173433
+    },
+    "c1": {
+      "urname": "aj",
+      "contactno": "123",
+      "role": "Candidate",
+      "username": "c1",
+      "password": "qq",
+      "details": {
+        "qualification": "Bachelors",
+        "dob": "09/05/2005",
+        "skillset": "Python, JavaScript, Web Development",
+        "expereince": "",
+        "maritalstatus": "Unmarried",
+        "resume": {
+          "name": "Resume_new.pdf",
+          "url": "blob:http://localhost:5173/b373c814-085c-4613-b1fe-2646bcc77b76"
+        }
+      },
+      "id": 1774810598217,
+      "selected": {}
+    }
+  },
+  "jobs": [
+    {
+      "jobrole": "Software Engineer",
+      "salary": "10000",
+      "location": "Delhi",
+      "jobtype": "Full-time",
+      "education": "Bachelors",
+      "skills": "Java",
+      "workexp": "2+ years as a Java Developer",
+      "desription": "",
+      "postedby": "e1",
+      "description": "Develop intuitive softwares for us!",
+      "company": "hero",
+      "id": 1774795288379,
+      "applicants": [
+        {
+          "urname": "aj",
+          "contactno": "123",
+          "role": "Candidate",
+          "username": "c1",
+          "password": "qq",
+          "details": {
+            "qualification": "Bachelors",
+            "dob": "09/05/2005",
+            "skillset": "Python, JavaScript, Web Development",
+            "expereince": "",
+            "maritalstatus": "Unmarried",
+            "resume": {
+              "name": "Resume_new.pdf",
+              "url": "blob:http://localhost:5173/b373c814-085c-4613-b1fe-2646bcc77b76"
+            }
+          },
+          "id": 1774810598217,
+          "selected": {}
+        }
+      ]
+    }
+  ]
+}

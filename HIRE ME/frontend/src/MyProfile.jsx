@@ -5,14 +5,31 @@ function MyProfile({ users, logout, loggeduser, updateSelection }){
     const location = useLocation()
     const jobid = location.state?.viewingjobid
     const currentUser = Object.values(users).find(user => user.id == userid)
-    function handleDecision(status){
+    async function handleDecision(status){
         if(!jobid){
             alert("No job found")
             return
         }
         const updatedSelected = {...currentUser.selected, [jobid]:status}
-        updateSelection(currentUser.username, updatedSelected)
-    }
+        try {
+            const response = await fetch('http://localhost:5000/api/update-selection', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 
+                    username: currentUser.username, 
+                    selected: newSelected 
+                })
+            });
+
+            if (response.ok) {
+                // Update the local state in App.jsx so the UI changes instantly
+                updateSelection(currentUser.username, newSelected);
+                alert(status ? "Shortlisted!" : "Removed.");
+            }
+        } catch (err) {
+            alert("Server is down! Decision not saved.");
+        }
+        }
     return(
         <div className="full">
             <div id="bio">

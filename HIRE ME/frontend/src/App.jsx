@@ -17,11 +17,10 @@ function App() {
   const [hasApplied, sethasApplied] = useState(false)
   const [currentUser, setCurrentUser] = useState(null)
   
-  // Initialize with empty data; useEffect will fill these from db.json
   const [users, setUsers] = useState({})
   const [jobs, setjobs] = useState([])
 
-  // --- 1. INITIAL DATA LOAD ---
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -36,7 +35,6 @@ function App() {
     fetchData();
   }, []);
 
-  // --- 2. SIGNUP LOGIC ---
   const addUser = async (userObject, resumefile) => {
     const finalUser = (userObject.role === "Candidate")
       ? { ...userObject, id: Date.now(), selected: {} }
@@ -55,7 +53,6 @@ function App() {
       if (response.ok) {
         const saveduser = data.user
         setUsers((prev) => ({ ...prev, [saveduser.username]: saveduser }));
-        // Log them in immediately after signup
         setCurrentUser(saveduser);
         setLogIn(true);
         navigate(`/myprofile/${saveduser.id}`);
@@ -67,7 +64,6 @@ function App() {
     }
   };
 
-  // --- 3. LOGIN/LOGOUT ---
   function login(username, password) {
     const usertologin = users[username];
     if (usertologin && usertologin.password === password) {
@@ -86,13 +82,12 @@ function App() {
     alert("Logged out successfully!");
   }
 
-  // --- 4. JOB CREATION ---
   const addJob = async (newJob) => {
     const jobwithUser = {
       ...newJob,
       postedby: currentUser.username,
-      company: currentUser.details.companyname, // Fixed typo: comapnyname -> companyname
-      id: Date.now(), // Fixed: added ()
+      company: currentUser.details.companyname, 
+      id: Date.now(), 
       applicants: [],
     };
 
@@ -111,7 +106,7 @@ function App() {
     }
   };
 
-  // --- 5. APPLICATION LOGIC ---
+
   const applytojob = async (jobID, user) => {
     try {
       const response = await fetch('http://localhost:5000/api/apply', {
@@ -132,7 +127,6 @@ function App() {
     }
   };
 
-  // --- 6. SELECTION LOGIC (Employer Decision) ---
   const updateSelection = async (username, newSelected) => {
     try {
       const response = await fetch('http://localhost:5000/api/update-selection', {

@@ -10,14 +10,11 @@ app.use(cors());
 app.use('/resumes', express.static(path.join(__dirname, 'resumes')));
 
 const DB_FILE = './db.json';
-
-// --- HELPER FUNCTIONS ---
 const readDB = () => {
     try {
         const data = fs.readFileSync(DB_FILE, 'utf-8');
         return JSON.parse(data);
     } catch (err) {
-        // Initial structure if file is missing or empty
         return { users: {}, jobs: [] };
     }
 };
@@ -36,16 +33,10 @@ const storage = multer.diskStorage({
 })
 
 const upload = multer({ storage:storage })
-
-// --- ROUTES ---
-
-// 1. Initial Data Sync
 app.get('/api/data', (req, res) => {
     const db = readDB();
     res.json(db);
 });
-
-// 2. Signup (Stores User as a Key in the Object)
 app.post('/api/signup', upload.single('resume'), (req, res) => {
     const db = readDB();
     if (!req.body.userData) {
@@ -63,15 +54,11 @@ app.post('/api/signup', upload.single('resume'), (req, res) => {
             url: `http://localhost:5000/resumes/${req.file.filename}`
         }
     }
-
-    // Save using username as the Key
     db.users[userData.username] = userData;
     writeDB(db);
     
     res.status(201).json({ message: "User registered successfully!", user: userData });
 });
-
-// 3. Update Selection (Employer Approval/Rejection)
 app.post('/api/update-selection', (req, res) => {
     const { username, selected } = req.body;
     const db = readDB();
@@ -84,8 +71,6 @@ app.post('/api/update-selection', (req, res) => {
     
     res.status(404).json({ message: "User not found" });
 });
-
-// 4. Post a New Job
 app.post('/api/add-job', (req, res) => {
     const newJob = req.body; 
     const db = readDB();
@@ -96,7 +81,6 @@ app.post('/api/add-job', (req, res) => {
     res.status(201).json({ message: "Job posted successfully!", job: newJob });
 });
 
-// 5. Apply to Job
 app.post('/api/apply', (req, res) => {
     const { jobId, currentUser } = req.body; 
     const db = readDB();
@@ -104,7 +88,6 @@ app.post('/api/apply', (req, res) => {
     const jobIndex = db.jobs.findIndex(j => j.id == jobId);
     
     if (jobIndex !== -1) {
-        // Prevent duplicate applications
         const alreadyApplied = db.jobs[jobIndex].applicants.some(a => a.username === currentUser.username);
         
         if (alreadyApplied) {
@@ -119,7 +102,6 @@ app.post('/api/apply', (req, res) => {
     res.status(404).json({ message: "Job not found" });
 });
 
-// --- START SERVER ---
 const PORT = 5000;
 app.listen(PORT, () => {
     console.log(`🚀 JSON Server running at http://localhost:${PORT}`);

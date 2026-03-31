@@ -11,7 +11,7 @@ function JobCreator({ addJob }){
         education: "",
         skills: "",
         workexp:"",
-        desription:"",
+        description:"",
         postedby: "",
     })
     const handleChange = (e) => {

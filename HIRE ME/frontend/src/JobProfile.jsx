@@ -52,7 +52,7 @@ function JobProfile({ jobs, currentUser, applytojob }){
                 </div>
                 <div className="detail">
                     <span>Prior work expereince required: </span>
-                    <p>{job?.expereince}</p>
+                    <p>{job?.workexp}</p>
                 </div>
                 <div className="detail">
                     <span>Description: </span>

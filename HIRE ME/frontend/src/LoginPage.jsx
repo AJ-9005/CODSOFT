@@ -10,13 +10,24 @@ function LoginPage({ addUser, login }){
         username: "",
         password: "",
     })
+    const [passconfirm, setpassconfirm] = useState("");
     const handleChange = (e) => {
         const { name, value } = e.target;
+        if(name == "confpassword"){
+            setpassconfirm(value)
+            return
+        }
         setformdata((prev) => ({
             ...prev, [name]: value,}))
     }
     const handleRegister = (e) => {
         e.preventDefault()
+        console.log(passconfirm)
+        console.log(formdata.password)
+        if(passconfirm != formdata.password){
+            alert("Confirmed password should be the same as initial password!")
+            return
+        }
         if(newUser){
             // addUser(formdata)
             // setnewUser(false)
@@ -55,18 +66,18 @@ function LoginPage({ addUser, login }){
                         <label for="urname">Your Name</label>
                         <input type="text" id="urname" name="urname" onChange={handleChange} required /><br />
                         <label for="contactno">Contact No</label>
-                        <input type="text" id="contactno" name="contactno" onChange={handleChange} required /><br />
+                        <input type="number" id="contactno" name="contactno" onChange={handleChange} required /><br />
                         <label for="role">Role:</label>
                         <label>
-                        <input type="radio" name="role" value="Employer" onChange={handleChange}/>Employer
-                        <input type="radio" name="role" value="Candidate" onChange={handleChange}/>Candidate
+                        <input type="radio" name="role" value="Employer" onChange={handleChange} required/>Employer
+                        <input type="radio" name="role" value="Candidate" onChange={handleChange} required/>Candidate
                         </label>
                         <label for="username">Username</label>
                         <input type="text" id="username" name="username" onChange={handleChange} required /><br />
                         <label for="password">Password</label>
                         <input type="password" id="password" name="password" onChange={handleChange} required /><br />
                         <label for="password">Confirm Password</label>
-                        <input type="password" id="password" name="password" required /><br />
+                        <input type="password" name="confpassword" onChange={handleChange} required /><br />
                         <button type="submit" className="btn">Register</button>
                         <p style={{textAlign:"center"}}>Already have an account? <span id="registerbutton" onClick={() => setnewUser(false)}>Sign-In</span></p>
                     </form>

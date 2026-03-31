@@ -37,24 +37,28 @@ function App() {
   }, []);
 
   // --- 2. SIGNUP LOGIC ---
-  const addUser = async (userObject) => {
+  const addUser = async (userObject, resumefile) => {
     const finalUser = (userObject.role === "Candidate")
       ? { ...userObject, id: Date.now(), selected: {} }
       : { ...userObject, id: Date.now() };
-
+    const formdata = new FormData()
+    if(resumefile){
+      formdata.append('resume', resumefile)
+    }
+    formdata.append('userData', JSON.stringify(finalUser))
     try {
       const response = await fetch('http://localhost:5000/api/signup', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(finalUser)
+        body: formdata,
       });
       const data = await response.json();
       if (response.ok) {
-        setUsers((prev) => ({ ...prev, [finalUser.username]: finalUser }));
+        const saveduser = data.user
+        setUsers((prev) => ({ ...prev, [saveduser.username]: saveduser }));
         // Log them in immediately after signup
-        setCurrentUser(finalUser);
+        setCurrentUser(saveduser);
         setLogIn(true);
-        navigate(`/myprofile/${finalUser.id}`);
+        navigate(`/myprofile/${saveduser.id}`);
       } else {
         alert(data.message);
       }
@@ -158,7 +162,7 @@ function App() {
         <Route path="/creations" element={<Creations jobs={jobs} currentUser={currentUser} />} />
         <Route path="/myprofile/:userid" element={<MyProfile users={users} logout={logout} loggeduser={currentUser} updateSelection={updateSelection} />} />
         <Route path="/jobdetails/:jobID" element={<JobProfile jobs={jobs} currentUser={currentUser} applytojob={applytojob} hasApplied={hasApplied} sethasApplied={sethasApplied} />} />
-        <Route path="/detailsEntry" element={<DetailsEntry addUser={addUser} login={login} />} />
+        <Route path="/detailsEntry" element={<DetailsEntry addUser={addUser} />} />
         <Route path="/jobcreator" element={<JobCreator addJob={addJob} />} />
       </Routes>
     </>

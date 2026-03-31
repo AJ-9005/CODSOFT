@@ -10,7 +10,7 @@ function MyProfile({ users, logout, loggeduser, updateSelection }){
             alert("No job found")
             return
         }
-        const updatedSelected = {...currentUser.selected, [jobid]:status}
+        const newSelected = {...currentUser?.selected, [jobid]: status}
         try {
             const response = await fetch('http://localhost:5000/api/update-selection', {
                 method: 'POST',
@@ -50,7 +50,7 @@ function MyProfile({ users, logout, loggeduser, updateSelection }){
                 </>)}
                 {currentUser?.role == "Candidate" && (<>
                     <h1 className="heading">Personal Details</h1>
-                    <div class="mydetails">
+                    <div className="mydetails">
                         <p>Name: {currentUser?currentUser.urname:""}</p>
                         <p>Date Of Birth: {currentUser?currentUser.details.dob:""}</p>
                         <p>Contact no: {currentUser?currentUser.contactno:""}</p>
@@ -70,13 +70,13 @@ function MyProfile({ users, logout, loggeduser, updateSelection }){
                     }}>View Resume</button>
                 </>)}
             </div>
-            {loggeduser.role == "Employer" && loggeduser.id != userid &&(
+            {loggeduser?.role == "Employer" && loggeduser?.id != userid &&(
                 <div className="decision">
                     <button className="btn" onClick={() => handleDecision(true)} disabled={currentUser?.selected?.[jobid] === true}>Approve</button>
                     <button className="btn" onClick={() => handleDecision(false)} disabled={currentUser?.selected?.[jobid] === false}>Reject</button>
                 </div>
             )}
-            {loggeduser.id == currentUser.id &&(<button className="btn" style={{margin:"15px", position:"fixed", right:"5px", bottom:"10px "}} onClick={logout}>Logout</button>)}
+            {loggeduser?.id == currentUser?.id &&(<button className="btn" style={{margin:"15px", position:"fixed", right:"5px", bottom:"10px "}} onClick={logout}>Logout</button>)}
         </div>
     )
 }

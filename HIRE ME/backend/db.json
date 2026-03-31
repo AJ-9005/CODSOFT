@@ -14,24 +14,24 @@
       },
       "id": 1774795173433
     },
-    "c1": {
-      "urname": "aj",
+    "user2": {
+      "urname": "AJ",
       "contactno": "123",
       "role": "Candidate",
-      "username": "c1",
+      "username": "user2",
       "password": "qq",
       "details": {
         "qualification": "Bachelors",
-        "dob": "09/05/2005",
+        "dob": "2005-05-09",
         "skillset": "Python, JavaScript, Web Development",
         "expereince": "",
         "maritalstatus": "Unmarried",
         "resume": {
           "name": "Resume_new.pdf",
-          "url": "blob:http://localhost:5173/b373c814-085c-4613-b1fe-2646bcc77b76"
+          "url": "http://localhost:5000/resumes/1774899174754-Resume_new.pdf"
         }
       },
-      "id": 1774810598217,
+      "id": 1774899174737,
       "selected": {}
     }
   },
@@ -44,7 +44,6 @@
       "education": "Bachelors",
       "skills": "Java",
       "workexp": "2+ years as a Java Developer",
-      "desription": "",
       "postedby": "e1",
       "description": "Develop intuitive softwares for us!",
       "company": "hero",
@@ -71,6 +70,20 @@
           "selected": {}
         }
       ]
+    },
+    {
+      "jobrole": "Sales head",
+      "salary": "10000",
+      "location": "Pune",
+      "jobtype": "Full-time",
+      "education": "Intermediate",
+      "skills": "Communication, sales",
+      "workexp": "None",
+      "description": "Help us achieve our monthly sales goals and get bonuses!",
+      "postedby": "e1",
+      "company": "hero",
+      "id": 1774869867494,
+      "applicants": []
     }
   ]
 }

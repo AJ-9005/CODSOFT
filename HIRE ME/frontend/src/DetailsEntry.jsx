@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { useLocation, useNavigate } from "react-router-dom"
 
-function DetailsEntry({ addUser, login }){
+function DetailsEntry({ addUser }){
     const location = useLocation()
     const navigate = useNavigate()
     const basicInfo = location.state?.basicInfo
@@ -21,8 +21,7 @@ function DetailsEntry({ addUser, login }){
     })
     function handleChange(e){
         const { name, value, type, files } = e.target
-        const finalValue = type == "file"
-        ?{name: files[0].name, url: URL.createObjectURL(files[0])}:value
+        const finalValue = type == "file" ? files[0]: value
         if(basicInfo.role == "Employer"){
             setCompanyDetails((prev) => ({
             ...prev, [name]: finalValue,
@@ -37,6 +36,7 @@ function DetailsEntry({ addUser, login }){
     function handleSubmit(e){
         e.preventDefault()
         let finalData = {}
+        let resumefile = null
         if (basicInfo.role == "Employer"){
             finalData = {
                 ...basicInfo,
@@ -44,12 +44,13 @@ function DetailsEntry({ addUser, login }){
             }
         }
         else{
+            resumefile = applicantdetails.resume
             finalData = {
                 ...basicInfo,
                 details: applicantdetails
             }
         }
-        addUser(finalData)
+        addUser(finalData, resumefile)
         navigate("/login")
         alert("Registered Succesfully! Please Login.")
     }
@@ -72,7 +73,7 @@ function DetailsEntry({ addUser, login }){
                 <label for="qualification">Highest qualification</label>
                 <input type="text" id="compname" name="qualification" onChange={handleChange} required /><br />
                 <label for="dob">Date Of Birth(dd/mm/yyyy)</label>
-                <input type="text" name="dob" onChange={handleChange}/>
+                <input type="date" name="dob" onChange={handleChange}/><br />
                 <label for="skillset">Skills (Any 5)</label>
                 <input type="text" id="origin" name="skillset" onChange={handleChange} required /><br />
                 <label for="expereince">Prior work expereince (if any)</label>

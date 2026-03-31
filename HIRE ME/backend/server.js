@@ -2,9 +2,12 @@ const express = require('express');
 const fs = require('fs');
 const cors = require('cors');
 const app = express();
+const multer = require('multer')
+const path = require('path')
 
 app.use(express.json());
 app.use(cors());
+app.use('/resumes', express.static(path.join(__dirname, 'resumes')));
 
 const DB_FILE = './db.json';
 
@@ -23,6 +26,17 @@ const writeDB = (data) => {
     fs.writeFileSync(DB_FILE, JSON.stringify(data, null, 2));
 };
 
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'resumes/')
+    },
+    filename: (req, file, cb) => {
+        cb(null, Date.now() + '-' + file.originalname);
+    }
+})
+
+const upload = multer({ storage:storage })
+
 // --- ROUTES ---
 
 // 1. Initial Data Sync
@@ -32,19 +46,29 @@ app.get('/api/data', (req, res) => {
 });
 
 // 2. Signup (Stores User as a Key in the Object)
-app.post('/api/signup', (req, res) => {
-    const newUser = req.body;
+app.post('/api/signup', upload.single('resume'), (req, res) => {
     const db = readDB();
+    if (!req.body.userData) {
+        return res.status(400).json({ message: "No user data received" });
+    }
+    const userData = JSON.parse(req.body.userData)
 
-    if (db.users[newUser.username]) {
+    if (db.users[userData.username]) {
         return res.status(400).json({ message: "Username already taken!" });
     }
 
+    if(req.file){
+        userData.details.resume = {
+            name: req.file.originalname,
+            url: `http://localhost:5000/resumes/${req.file.filename}`
+        }
+    }
+
     // Save using username as the Key
-    db.users[newUser.username] = newUser;
+    db.users[userData.username] = userData;
     writeDB(db);
     
-    res.status(201).json({ message: "User registered successfully!", user: newUser });
+    res.status(201).json({ message: "User registered successfully!", user: userData });
 });
 
 // 3. Update Selection (Employer Approval/Rejection)

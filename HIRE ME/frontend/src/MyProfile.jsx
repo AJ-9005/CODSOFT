@@ -54,6 +54,7 @@ function MyProfile({ users, logout, loggeduser, updateSelection }){
                         <p>Name: {currentUser?currentUser.urname:""}</p>
                         <p>Date Of Birth: {currentUser?currentUser.details.dob:""}</p>
                         <p>Contact no: {currentUser?currentUser.contactno:""}</p>
+                        <p>E-mail: {currentUser?currentUser.email:""}</p>
                         <p>Account type: {currentUser?currentUser.role:""}</p>
                         <p>Highest qualification: {currentUser?currentUser.details.qualification:""}</p>
                         <p>Skillset: {currentUser?currentUser.details.skillset:""}</p>

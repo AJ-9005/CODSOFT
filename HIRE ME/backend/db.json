@@ -33,6 +33,29 @@
       },
       "id": 1774899174737,
       "selected": {}
+    },
+    "user3": {
+      "urname": "AJ",
+      "contactno": "1234567890",
+      "email": "aanjaneysharma39@gmail.com",
+      "role": "Candidate",
+      "username": "user3",
+      "password": "qq",
+      "details": {
+        "qualification": "Bachelors",
+        "dob": "2005-05-09",
+        "skillset": "Python, JavaScript, Web Development",
+        "expereince": "",
+        "maritalstatus": "Unmarried",
+        "resume": {
+          "name": "Resume_new.pdf",
+          "url": "http://localhost:5000/resumes/1775282051952-Resume_new.pdf"
+        }
+      },
+      "id": 1775282051937,
+      "selected": {
+        "1774795288379": true
+      }
     }
   },
   "jobs": [
@@ -50,23 +73,24 @@
       "id": 1774795288379,
       "applicants": [
         {
-          "urname": "aj",
-          "contactno": "123",
+          "urname": "AJ",
+          "contactno": "1234567890",
+          "email": "aanjaneysharma39@gmail.com",
           "role": "Candidate",
-          "username": "c1",
+          "username": "user3",
           "password": "qq",
           "details": {
             "qualification": "Bachelors",
-            "dob": "09/05/2005",
+            "dob": "2005-05-09",
             "skillset": "Python, JavaScript, Web Development",
             "expereince": "",
             "maritalstatus": "Unmarried",
             "resume": {
               "name": "Resume_new.pdf",
-              "url": "blob:http://localhost:5173/b373c814-085c-4613-b1fe-2646bcc77b76"
+              "url": "http://localhost:5000/resumes/1775282051952-Resume_new.pdf"
             }
           },
-          "id": 1774810598217,
+          "id": 1775282051937,
           "selected": {}
         }
       ]
@@ -83,6 +107,20 @@
       "postedby": "e1",
       "company": "hero",
       "id": 1774869867494,
+      "applicants": []
+    },
+    {
+      "jobrole": "Marketting head",
+      "salary": "50000",
+      "location": "Lucknow",
+      "jobtype": "Full-time",
+      "education": "Bachelors",
+      "skills": "Communication",
+      "workexp": "1+ years in related field",
+      "description": "Expand Our marketting network",
+      "postedby": "e1",
+      "company": "hero",
+      "id": 1775282169045,
       "applicants": []
     }
   ]

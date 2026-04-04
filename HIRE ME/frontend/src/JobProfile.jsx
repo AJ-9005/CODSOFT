@@ -8,7 +8,7 @@ function JobProfile({ jobs, currentUser, applytojob }){
     const isOwner = currentUser?.username == job?.postedby
     const status = currentUser?.selected?.[jobID]
     const statusText = status == true ? "Approved":status == false? "Rejected": "Pending"
-    const hasApplied = status?status:true
+    const [hasApplied, sethasApplied] = useState(status?status:false)
     function handleApply(){
         if(!currentUser){
             alert("Please login to apply!")

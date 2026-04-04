@@ -6,6 +6,7 @@ function LoginPage({ addUser, login }){
     const [formdata, setformdata] = useState({
         urname: "",
         contactno: "",
+        email:"",
         role: "",
         username: "",
         password: "",
@@ -67,6 +68,8 @@ function LoginPage({ addUser, login }){
                         <input type="text" id="urname" name="urname" onChange={handleChange} required /><br />
                         <label for="contactno">Contact No</label>
                         <input type="number" id="contactno" name="contactno" onChange={handleChange} required /><br />
+                        <label for="contactno">E-mail ID</label>
+                        <input type="email" id="contactno" name="email" onChange={handleChange} required /><br />
                         <label for="role">Role:</label>
                         <label>
                         <input type="radio" name="role" value="Employer" onChange={handleChange} required/>Employer
